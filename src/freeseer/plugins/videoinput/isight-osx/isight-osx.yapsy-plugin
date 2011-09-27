@@ -1,0 +1,9 @@
+[Core]
+Name = ISight - OSX
+Module = isight-osx
+
+[Documentation]
+Author = Joseph yeung
+Version = 0.1
+Website = http://fosslc.org
+Description = Source for recording from ISight on OSX.
