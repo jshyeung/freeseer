@@ -35,7 +35,21 @@ You can install Freeseer from binary packages. Visit our download site
 if you would like to do so.
 
 To develop and run freeseer, you require:
-    Make, Git, Python 2.6, PyQT development tools
+    Make, Git, Python 2.6, PyQT development tools, GStreamer
+    
+For Mac OSX, install:
+---------------------
+	install xcode from appstore
+	install macport from www.macports.org
+	notes:
+		Currently apple_media is disabled by default on macports
+		To enable it copy the ports folder into /Users/[USRNAME]/
+		modify
+		
+	"sudo port install python27 gstreamer py27-gobject qt4-mac py27-pyqt4 
+	py27-gst-python gst-plugins-base gst-plugins-good gst-plugins-ugly 
+	gst-plugins-bad +apple_media"
+	YAPSY can be installed by "setup.py install"
 
 For Fedora Linux, install:
 --------------------------

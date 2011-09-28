@@ -10,7 +10,8 @@ class USBSrc(IVideoInput):
     def get_videoinput_bin(self):
         bin = gst.Bin(self.name)
         
-        videosrc = gst.element_factory_make("qtkitvideosrc", "videosrc")
+        ## replace first argument with what ever the source is
+        videosrc = gst.element_factory_make("", "videosrc")
         bin.add(videosrc)
         
         # Setup ghost pad
