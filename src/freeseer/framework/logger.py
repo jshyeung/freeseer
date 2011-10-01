@@ -26,6 +26,7 @@ import ConfigParser
 import logging
 import logging.config
 import os
+import sys
 
 class Logger():
     '''
@@ -73,14 +74,18 @@ class Logger():
         
         config.add_section('handler_syslogHandler')
         config.set('handler_syslogHandler', 'level', 'NOTSET')
-        if os.name == 'posix':
+        if sys.platform.startswith('linux'):
             config.set('handler_syslogHandler', 'class', 'handlers.SysLogHandler')
             config.set('handler_syslogHandler', 'formatter', 'nix')
             config.set('handler_syslogHandler', 'args', "(('/dev/log'), handlers.SysLogHandler.LOG_USER)")
-        elif os.name == 'nt':
+        elif sys.platform == 'win32' or sys.platform == 'cygwin':
             config.set('handler_syslogHandler', 'class', 'handlers.NTEventLogHandler')
             config.set('handler_syslogHandler', 'formatter', 'nix')
             config.set('handler_syslogHandler', 'args', "('Freeseer', '', 'Application')")
+        elif sys.platform =='darwin':
+            config.set('handler_syslogHandler', 'class', 'handlers.SysLogHandler')
+            config.set('handler_syslogHandler', 'formatter', 'nix')
+            config.set('handler_syslogHandler', 'args', "(('/var/run/syslog'), handlers.SysLogHandler.LOG_USER)")
         else:
             pass # Unsupported
         
