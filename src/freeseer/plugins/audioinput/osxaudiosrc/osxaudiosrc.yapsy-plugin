@@ -1,0 +1,9 @@
+[Core]
+Name = OSX Audio Source
+Module = osxaudiosrc
+
+[Documentation]
+Author = Joseph Yeung
+Version = 0.1
+Website = http://fosslc.org
+Description = OSX Audio Sound Source

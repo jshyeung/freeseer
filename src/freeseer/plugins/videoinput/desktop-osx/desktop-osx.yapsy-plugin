@@ -1,0 +1,9 @@
+[Core]
+Name = Desktop - OSX
+Module = desktop-osx
+
+[Documentation]
+Author = Joseph yeung
+Version = 0.1
+Website = http://fosslc.org
+Description = Source for recording from ISight on OSX.
