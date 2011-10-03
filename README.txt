@@ -36,7 +36,7 @@ if you would like to do so.
 
 To develop and run freeseer, you require:
     Make, Git, Python 2.7, sqlite3, PyQT development tools
-
+    
 For Mac OSX, install:
 ---------------------
 	install xcode from appstore
@@ -50,7 +50,8 @@ For Mac OSX, install:
 	py27-gst-python gst-plugins-base gst-plugins-good gst-plugins-ugly 
 	gst-plugins-bad +apple_media"
 	YAPSY can be installed by "setup.py install"
-    
+    Make, Git, Python 2.7, sqlite3, PyQT development tools
+
 For Fedora Linux, install:
 --------------------------
     "sudo yum install git make PyQt4-devel python-feedparser.noarch python-setuptools"    
@@ -68,6 +69,8 @@ For Windows, install:
     - PyQt-Py2.7-x86-gpl-4.8.5-1
     - pygtk-all-in-one-2.24.0.win32-py2.7 
     - feedparser-5.0.1 
+    - cmake-2.8.5-win32-x86
+    - mingw-get-inst-20110802
     - setuptools-0.6c11.win32-py2.7
     - yapsy
     
@@ -82,7 +85,7 @@ For Windows, install:
     	- The above software versions are known to work well. Python does need to be version 2.7.*
 
           On windows, add the following paths to your PATH variable:
-          C:\Python26;C:\Python26\Lib\site-packages\PyQt4\bin
+          C:\Python26;C:\Python26\Lib\site-packages\PyQt4\bin;C:\MinGW\bin
           
     Troubleshooting:
     	If you have issues running freeseer with cannot import gst error this link may help:
@@ -90,11 +93,18 @@ For Windows, install:
 
 -------------------------------------------------------------------------
 
-Once you have the prerequisite components you can run Freeseer using the
-following commands:
-        "./freeseer-record"         This is the Freeseer mainapp
-        "./freeseer-config"         This is the Configuration tool
-        "./freeseer-talkeditor"     This is the Talk List editor
+Once you have the prerequisite components, build freeseer by changing
+directory into the freeseer directory (above src directory), and run:
+    "mkdir build; cd build; cmake .."
+
+    NOTE: If you are running on windows you will need an additional option
+          for cmake to work. You can run 'cmake -G "MinGW Makefiles" ..'
+
+This will compile the gui files. Once this completes, you can then:
+    "cd ../src"
+    "./freeseer-record"
+
+This starts up the Freeseer recording tool GUI.
 
 If you would like to create packages, read PACKAGE.txt for instructions.
 
