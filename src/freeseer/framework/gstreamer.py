@@ -23,7 +23,7 @@
 # http://wiki.github.com/fosslc/freeseer/
 
 import logging
-
+import sys
 import gobject
 gobject.threads_init()
 import pygst
@@ -90,7 +90,8 @@ class Gstreamer:
         message_name = message.structure.get_name()
         if message_name == 'prepare-xwindow-id':
             imagesink = message.src
-            ##imagesink.set_property('force-aspect-ratio', True)
+            if sys.platform != 'darwin': ## OSX does not support force-aspect-ratio
+                imagesink.set_property('force-aspect-ratio', True)
             imagesink.set_xwindow_id(int(self.window_id))
             logging.debug("Preview loaded into window.")
             
