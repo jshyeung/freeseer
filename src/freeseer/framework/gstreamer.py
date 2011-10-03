@@ -90,7 +90,7 @@ class Gstreamer:
         message_name = message.structure.get_name()
         if message_name == 'prepare-xwindow-id':
             imagesink = message.src
-            imagesink.set_property('force-aspect-ratio', True)
+            ##imagesink.set_property('force-aspect-ratio', True)
             imagesink.set_xwindow_id(int(self.window_id))
             logging.debug("Preview loaded into window.")
             

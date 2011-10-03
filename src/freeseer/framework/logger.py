@@ -89,8 +89,8 @@ class Logger():
         elif sys.platform =='darwin':
             config.set('handler_syslogHandler', 'class', 'handlers.SysLogHandler')
             config.set('handler_syslogHandler', 'formatter', 'nix')
-            #config.set('handler_syslogHandler', 'args', "("+self.getLogPath()+", handlers.SysLogHandler.LOG_USER)")
-            config.set('handler_syslogHandler', 'args', "(('/dev/log'), handlers.SysLogHandler.LOG_USER)")
+            config.set('handler_syslogHandler', 'args', "("+self.getLogPath()+", handlers.SysLogHandler.LOG_USER)")
+            #config.set('handler_syslogHandler', 'args', "(('/dev/log'), handlers.SysLogHandler.LOG_USER)")
         else:
             pass # Unsupported
         

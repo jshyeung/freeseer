@@ -108,3 +108,5 @@ class USBSrc(IVideoInput):
     def set_device(self, device):
         self.plugman.plugmanc.registerOptionFromPlugin("VideoInput", self.name, "Video Device", device)
         self.plugman.save()
+    
+     
