@@ -29,7 +29,7 @@ import gst
 
 from freeseer.framework.plugin import IVideoInput
 
-class USBSrc(IVideoInput):
+class ISightSrc(IVideoInput):
     name ="ISight-OSX Source"
     
     def get_videoinput_bin(self):

@@ -28,14 +28,14 @@ import gst
 
 from freeseer.framework.plugin import IAudioInput
 
-class PulseSrc(IAudioInput):
+class OSXAudioSrc(IAudioInput):
     name = "OSX Audio Source"
     
     def get_audioinput_bin(self):
         bin = gst.Bin(self.name)
         
         #replace first argument with what ever OSX uses
-        audiosrc = gst.element_factory_make("", "audiosrc")
+        audiosrc = gst.element_factory_make("osxaudiosrc", "audiosrc")
         bin.add(audiosrc)
         
         # Setup ghost pad
