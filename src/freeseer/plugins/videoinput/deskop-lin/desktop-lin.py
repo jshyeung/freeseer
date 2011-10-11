@@ -34,28 +34,11 @@ from PyQt4 import QtGui, QtCore
 
 from freeseer.framework.plugin import IVideoInput
 
-class USBSrc(IVideoInput):
-    name = "USB Source"
-    device = "/dev/video0"
-    device_list = []
+class DesktopLinuxSrc(IVideoInput):
+    name = "Desktop-Linux Source"
     input_type = "video/x-raw-rgb"
     framerate = 10
     resolution = "NOSCALE"
-    
-    def __init__(self):
-        IVideoInput.__init__(self)
-        
-        #
-        # Detect available devices
-        #
-        i = 0
-        path = "/dev/video"
-        devpath = path + str(i)
-        
-        while os.path.exists(devpath):
-            self.device_list.append(devpath)
-            i=i+1
-            devpath=path + str(i)
     
     def get_videoinput_bin(self):
         """
@@ -63,8 +46,7 @@ class USBSrc(IVideoInput):
         """
         bin = gst.Bin(self.name)
         
-        videosrc = gst.element_factory_make("v4l2src", "videosrc")
-        videosrc.set_property("device", self.device)
+        videosrc = gst.element_factory_make("ximagesrc", "videosrc")
         bin.add(videosrc)
         
         
@@ -102,7 +84,6 @@ class USBSrc(IVideoInput):
     
     def load_config(self, plugman):
         self.plugman = plugman
-        self.device = self.plugman.plugmanc.readOptionFromPlugin("VideoInput", self.name, "Video Device")
         self.input_type = self.plugman.plugmanc.readOptionFromPlugin("VideoInput", self.name, "Input Type")
         self.framerate = self.plugman.plugmanc.readOptionFromPlugin("VideoInput", self.name, "Framerate")
         self.resolution = self.plugman.plugmanc.readOptionFromPlugin("VideoInput", self.name, "Resolution")
@@ -113,10 +94,6 @@ class USBSrc(IVideoInput):
             
             layout = QtGui.QFormLayout()
             self.widget.setLayout(layout)
-            
-            self.label = QtGui.QLabel("Video Device")
-            self.combobox = QtGui.QComboBox()
-            layout.addRow(self.label, self.combobox)
             
             self.videocolourLabel = QtGui.QLabel(self.widget.tr("Colour Format"))
             self.videocolourComboBox = QtGui.QComboBox()
@@ -145,9 +122,6 @@ class USBSrc(IVideoInput):
             layout.addRow(self.videoscaleLabel, self.videoscaleComboBox)
             
             # Connections
-            self.widget.connect(self.combobox, 
-                                QtCore.SIGNAL('currentIndexChanged(const QString&)'), 
-                                self.set_device)
             self.widget.connect(self.framerateSlider,
                                 QtCore.SIGNAL("valueChanged(int)"),
                                 self.framerateSpinBox.setValue)
@@ -170,34 +144,19 @@ class USBSrc(IVideoInput):
         self.plugman = plugman
         
         try:
-            self.device = self.plugman.plugmanc.readOptionFromPlugin("VideoInput", self.name, "Video Device")
             self.input_type = self.plugman.plugmanc.readOptionFromPlugin("VideoInput", self.name, "Input Type")
             self.framerate = int(self.plugman.plugmanc.readOptionFromPlugin("VideoInput", self.name, "Framerate"))
             self.resolution = self.plugman.plugmanc.readOptionFromPlugin("VideoInput", self.name, "Resolution")
         except ConfigParser.NoSectionError:
-            self.plugman.plugmanc.registerOptionFromPlugin("VideoInput", self.name, "Video Device", self.device)
             self.plugman.plugmanc.registerOptionFromPlugin("VideoInput", self.name, "Input Type", self.input_type)
             self.plugman.plugmanc.registerOptionFromPlugin("VideoInput", self.name, "Framerate", self.framerate)
             self.plugman.plugmanc.registerOptionFromPlugin("VideoInput", self.name, "Resolution", self.resolution)
-                
-        # Load the combobox with inputs
-        self.combobox.clear()
-        n = 0
-        for i in self.device_list:
-            self.combobox.addItem(i)
-            if i == self.device:
-                self.combobox.setCurrentIndex(n)
-            n = n +1
-            
+        
         vcolour_index = self.videocolourComboBox.findText(self.input_type)
         self.videocolourComboBox.setCurrentIndex(vcolour_index)
         
         self.framerateSlider.setValue(self.framerate)
-            
-    def set_device(self, device):
-        self.plugman.plugmanc.registerOptionFromPlugin("VideoInput", self.name, "Video Device", device)
-        self.plugman.save()
-
+        
     def set_videocolour(self, input_type):
         self.plugman.plugmanc.registerOptionFromPlugin("VideoInput", self.name, "Input Type", input_type)
         self.plugman.save()
