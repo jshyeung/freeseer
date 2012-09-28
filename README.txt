@@ -25,9 +25,9 @@ Freeseer supports free (royalty free) audio and video codecs.
 
 -------------------------------------------------------------------------
 
-Download the latest installers: https://github.com/fosslc/freeseer/downloads
+Download the latest installers: https://github.com/Freeseer/freeseer/downloads
 
-Download the latest source code: https://github.com/fosslc/freeseer
+Download the latest source code: https://github.com/Freeseer/freeseer
 
 -------------------------------------------------------------------------
 
@@ -43,7 +43,7 @@ For Fedora Linux, install:
 
 For Ubuntu Linux, install:
 --------------------------
-    “sudo apt-get install build-essential qt4-qmake pyqt4-dev-tools 
+    “sudo apt-get install build-essential qt4-qmake pyqt4-dev-tools cmake \
     libqt4-dev python-qt4 python-qt4-dev python2.6-dev python-feedparser”
 
 For Windows, install: 
@@ -60,14 +60,15 @@ For Windows, install:
 
 Once you have the prerequisite components, build freeseer by changing
 directory into the freeseer directory (above src directory), and run:
-    "mkdir build; cd build; cmake .."
+
+$ ( mkdir -p build; cd build; cmake .. )
 
     NOTE: If you are running on windows you will need an additional option
           for cmake to work. You can run 'cmake -G "MinGW Makefiles" ..'
 
 This will compile the gui files. Once this completes, you can then:
-    "cd ../src"
-    "./freeseer-record"
+
+$ src/freeseer-record
 
 This starts up the Freeseer recording tool GUI.
 
@@ -76,7 +77,7 @@ If you would like to create packages, read PACKAGE.txt for instructions.
 --------------------------------------------------------------------------
 
 Read more about hardware capture options here: 
-    http://wiki.github.com/fosslc/freeseer/capture-hardware
+    http://wiki.github.com/Freeseer/freeseer/capture-hardware
 
 If you wish to capture vga input using epiphan's vga2usb device:
     first, copy the vga2usb.ko driver to /lib/modules/<kernel version>
@@ -87,6 +88,6 @@ If you wish to capture vga input using epiphan's vga2usb device:
     "sudo cp vga2usb.conf /etc/modprobe.d/; depmod -a"
 
 For support, questions, suggestions or any other inquiries, visit:
-    http://wiki.github.com/fosslc/freeseer/
+    http://wiki.github.com/Freeseer/freeseer/
   
 ==========================================================================
