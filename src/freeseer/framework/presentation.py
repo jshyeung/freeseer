@@ -3,7 +3,7 @@
 
 # freeseer - vga/presentation capture software
 #
-#  Copyright (C) 2011  Free and Open Source Software Learning Centre
+#  Copyright (C) 2011, 2013  Free and Open Source Software Learning Centre
 #  http://fosslc.org
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -20,28 +20,50 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # For support, questions, suggestions or any other inquiries, visit:
-# http://wiki.github.com/fosslc/freeseer/
+# http://wiki.github.com/Freeseer/freeseer/
+
+from os import path
 
 
-
-class Presentation():	
+class Presentation(object):
     '''
     This class is responsible for encapsulate data about presentations
     and its database related operations
     '''
-
-    def __init__(self, title, speaker=None, description="", level="", event="", time="", room=None, talk_id=None, filename_id=None):
-        
+    def __init__(self, title, speaker="", description="", category="", event="Default", room="Default", date="", time=""):
         '''
         Initialize a presentation instance
         '''
-        self.speaker = speaker
         self.title = title
+        self.speaker = speaker
         self.description = description
-        self.level = level
+        self.category = category
         self.event = event
-        self.time = time
         self.room = room
-        self.talk_id = talk_id
-        self.filename_id = filename_id
+        self.date = date
+        self.time = time
 
+
+class PresentationFile(Presentation):
+
+    '''
+    This class represents a presentation that has been already been written
+    to a file and the metadata that has been loaded from it
+    '''
+
+    def __init__(self, title, speaker="", description="", category="", event="Default", room="Default", date="", time=""):
+        Presentation.__init__(
+            self, title, speaker, description, category, event, room, date, time)
+
+        self.filename = ""
+        self.album = ""
+        self.tracknumber = None
+        self.filedate = None
+        self.duration = None
+        self.filesize = None
+
+    artist = property(lambda self: self.speaker,
+                      lambda self, value: self.__setattr__('speaker', value))
+
+    filebase = property(lambda self: path.basename(self.filename))
+    filepath = property(lambda self: path.dirname(self.filename))
